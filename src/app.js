@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express();
-const port = 3030;
+const port = process.env.port || 3030;
 const fs = require('fs');
 const cors = require('cors');
 
 app.use(cors());
 //nodemon start src/app.js
-
+ 
 function findUserById(req,users)
 {
     let user =

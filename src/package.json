@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "main": "hello.js",
   "scripts": {
-    "type": "module",
     "test": "jest",
-    "start":"node src/app.js",
-    "dev":"node src/AppComponent.js"
+    "start":"node src/app.js"
   },
   "author": "",
   "license": "ISC",
