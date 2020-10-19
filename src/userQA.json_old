@@ -38,7 +38,13 @@
   {
     "userId": 5294916,
     "userName": "shlomi",
-    "Location": "",
-    "questionAnswer": []
+    "location": "Jerusalem",
+    "questionAnswer": [
+      2,
+      3,
+      4,
+      1,
+      3
+    ]
   }
 ]

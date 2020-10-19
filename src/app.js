@@ -2,16 +2,39 @@ const express = require('express')
 const app = express();
 const port = 3030;
 const fs = require('fs');
+const cors = require('cors');
+
+app.use(cors());
 //nodemon start src/app.js
 
+function findUserById(req,users)
+{
+    let user =
+            users.find(item => req.params.userId === item.userId.toString());
+    return user;
+}
+
+function findFriendById(req,friends)
+{   
+    let friend =
+        friends.find(item => req.params.userId === item.userId.toString());
+    return friend;
+}
+
+function findUserByName(req,users)
+{
+    
+    let user =
+        users.find(item => req.params.username === item.userName);//find returns undefined in case not found
+    return user;
+}
 //Get Questions and Answers Data
 //get http://localhost:3030/quiz/results/1
 //ok
 app.get('/quiz/results/:userId', function (req, res) {//readfile default buffer
     readJsonFile('userQA.json', users => {
 
-        let user =
-            users.find(item => req.params.userId === item.userId.toString());
+        let user=findUserById(req,users);
 
         res.setHeader('Content-Type', 'application/json');
         res.send(user);
@@ -23,11 +46,8 @@ app.get('/quiz/results/:userId/summary', function (req, res) {//readfile default
     readJsonFile('userQA.json', users => {
         readJsonFile('friends.json', friends => {
 
-            let user =
-                users.find(item => req.params.userId === item.userId.toString());
-
-            let friend =
-                friends.find(item => req.params.userId === item.userId.toString());
+            let user =findUserById(req,users);
+            let friend= findFriendById(req,friends);
 
             let rightAnswers = 0;
 
@@ -49,8 +69,7 @@ app.get('/quiz/results/:userId/summary', function (req, res) {//readfile default
 app.post('/quiz/:username/create', function (req, res) {
     readJsonFile('userQA.json', users => {
 
-        let user =
-            users.find(item => req.params.username === item.userName);//find returns undefined in case not found
+        let user =findUserByName(req,users);
 
         if (user !== undefined)
             return res.status(409).send('User already exist');
@@ -108,11 +127,16 @@ app.put('/quiz/:username/update', function (req, res) {
 });
 
 //postman post:http://localhost:3030/quiz/shlomi/tova/2
+//body
+// {
+//     "friendName":"tova",
+//     "questionId": 4,
+//     "answerId": 1
+// }
 app.post('/quiz/:username/answer', function (req, res) {
     readJsonFile('userQA.json', users => {
 
-        let user =
-            users.find(item => req.params.username === item.userName);//find returns undefined in case not found
+        let user =findUserByName(req,users);
 
         if (user === undefined)
             return res.status(404).send('Friend try to insert answers for not exist user');
@@ -193,10 +217,6 @@ app.get('/quiz/:username/get-question', function (req, res) {
             let idKey = idQuery.split("=")[0];//question
             let idValue = idQuery.split("=")[1];//1
 
-            console.log(idQuery);
-            console.log(idKey);
-            console.log(idValue);
-
             question = questions.find(question => idValue === question.id.toString());
 
             if (question === undefined) return res.status(404).send('Question not exist');
@@ -210,13 +230,15 @@ app.get('/quiz/:username/get-question', function (req, res) {
 
 
 function readJsonFile(filename, callback) {
+    if(!fs.existsSync(__dirname + '/' + filename))//returns true or false
+                return res.status(404).send('File not found');
     fs.readFile(__dirname + '/' + filename, (err, data) => {
         console.log(data);
         if (err) {
             console.error(err);
 
-            if (err.code === 'ENOENT')
-                return res.status(404).send('File not found');
+            // if (err.code === 'ENOENT')
+            //     return res.status(404).send('File not found');
 
             return res.status(500).send('Something internally failed, see logs for details');
         }
@@ -248,4 +270,7 @@ function writeJsonFile(filename, data, callback) {
     });
 }
 
-app.listen(port);
+app.listen(port, ()=>
+{
+    console.log(`Server started on port ${port}`);
+});
