@@ -4,12 +4,13 @@
   "main": "hello.js",
   "scripts": {
     "test": "jest",
-    "start":"node src/app.js"
+    "start": "node src/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "hbs": "^4.1.1",
     "validator": "^13.1.17",
