@@ -1,9 +1,8 @@
 const express = require('express')
 const app = express();
-const port = process.env.port || 3030;
+const port = process.env.PORT || 3000;
 const fs = require('fs');
 const cors = require('cors');
-
 app.use(cors());
 //nodemon start src/app.js
  
