@@ -11,7 +11,7 @@ const port = process.env.PORT || 3030;
  
 function findUserById(req,users)
 {
-    let user =
+    let user = 
             users.find(item => req.params.userId === item.userId.toString());
     return user;
 }
