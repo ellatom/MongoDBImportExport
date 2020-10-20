@@ -7,7 +7,11 @@ const instance =
 async function createUser(username) {
     return (await instance.post(`/quiz/${username}/create`));
 }
+async function updateUser(username) {
+    return (await instance.put(`/quiz/${username}/update`));
+}
 
 export default {
-    createUser
+    createUser,
+    updateUser
 };

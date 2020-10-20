@@ -9,10 +9,10 @@ class NameBar extends React.Component {
   handleSubmit=async(e)=>
   {
     e.preventDefault();
+
     let response = await api.createUser(this.state.name);
     console.log(response);
-    if(response)
-      history.push('/qacards');
+    history.push('/qacards',this.state.name);
   }
 
   handleChange = (e) => {

@@ -1,7 +1,0 @@
-[
-    { "id": 1, "question": "What is the most important thing in life", "answers": ["health", "happiness", "love", "money"] },
-    { "id": 2, "question": "What food you like most", "answers": ["Ice-Cream", "Pizza", "Pasta", "Hamburger"] },
-    { "id": 3, "question": "What is the best book", "answers": ["The Hitchhiker's Guide to the Galaxy", "The House of God", "1984, George Orwell", "Frankenstein, Mary Shelley"] },
-    { "id": 4, "question": "The question4", "answers": ["jkjk", "Alll2", "Appp3", "Ajjj4"] },
-    { "id": 5, "question": "The question5", "answers": ["jkjk", "Alll2", "Appp3", "Ajjj4"] }
-]
