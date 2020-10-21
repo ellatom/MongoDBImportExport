@@ -6,7 +6,6 @@ const app = express();
 app.use(cors());
 const port = process.env.PORT || 3030;
 
-console.log("PINI");
 //nodemon start src/app.js
  
 function findUserById(req,users)

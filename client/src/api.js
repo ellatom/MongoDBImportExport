@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = 
-    axios.create({ baseURL: 'http://localhost:3030'});
+    axios.create({ baseURL: 'https://dashboard.heroku.com/apps/ellaimportexport'});
 
 //get results per userId
 async function createUser(username) {
