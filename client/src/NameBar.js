@@ -16,7 +16,7 @@ class NameBar extends React.Component {
   }
 
   handleChange = (e) => {
-    debugger;
+    // debugger;
     this.setState({[e.target.name]: e.target.value})
   }
 
