@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+let usersPath = '../userQA.json';
+let friendsPath = '../friends.json';
+let qaBankPath ='../qaBank.json';
+
 function findUserById(req, users) {
     let user =
         users.find(item => req.params.userId === item.userId.toString());
@@ -58,7 +62,7 @@ function writeJsonFile(filename, data, callback) {
 
 //get http://localhost:3030/quiz/results/1
 exports.getUserQA = (function (req, res) {
-    readJsonFile('../userQA.json', (users, err) => {
+    readJsonFile(usersPath, (users, err) => {
 
         if (err)
         {
@@ -75,10 +79,11 @@ exports.getUserQA = (function (req, res) {
 
 //get http://localhost:3030/quiz/results/1/summary
 exports.getSummaryById=(function (req, res) {//readfile default buffer
-    readJsonFile('../userQA.json', users => {
-        readJsonFile('../friends.json', friends => {
+    debugger;
+    readJsonFile(usersPath, users => {
+        readJsonFile(friendsPath, friends => {
 
-            let user =findUserById(req,users);
+            let user =findUserByName(req,users);
             let friend= findFriendById(req,friends);
 
             let rightAnswers = 0;
@@ -89,7 +94,7 @@ exports.getSummaryById=(function (req, res) {//readfile default buffer
             }
 
             res.setHeader('Content-Type', 'application/json');
-            res.send(`{ "summary": "${rightAnswers}/${user.questionAnswer.length}" }`);
+            res.send(`{ "${user.userName}": "${rightAnswers}/${user.questionAnswer.length}" }`);
 
         });
     });
@@ -99,7 +104,7 @@ exports.getSummaryById=(function (req, res) {//readfile default buffer
 //Note:to run this again with shlomi he should be removed from userQA
 //ok
 exports.createNewUser=(function (req, res) {
-    readJsonFile('../userQA.json', users => {
+    readJsonFile(usersPath, users => {
 
         let user =findUserByName(req,users);
 
@@ -115,7 +120,7 @@ exports.createNewUser=(function (req, res) {
 
         users.push(user);
 
-        writeJsonFile('../userQA.json', users, () => {
+        writeJsonFile(usersPath, users, () => {
             res.end();
         });
     });
@@ -132,22 +137,21 @@ exports.createNewUser=(function (req, res) {
 // }
 //ok
 exports.updateUserAnswer = (function (req, res) {
-    readJsonFile('../userQA.json', users => {
+    readJsonFile(usersPath, users => {
         console.log(req)
-
         let foundIndex =
             users.findIndex(item => req.params.username === item.userName);//findIndex returns-1 in case not found
 
         if (foundIndex === -1)
             return res.status(404).send('User not exist');
-
+        console.log( users[foundIndex].userId);
         user = {
-            "userId": req.body.userId,
-            "userName": req.body.userName,
+            "userId": users[foundIndex].userId,
+            "userName": req.params.username ,
             "location": req.body.location,
             "questionAnswer": req.body.questionAnswer
         };
-        users[foundIndex] = req.body;
+        users[foundIndex] = user;
         console.log(users)
         writeJsonFile('../userQA.json', users, () => {
             res.end();
@@ -163,14 +167,14 @@ exports.updateUserAnswer = (function (req, res) {
 //     "answerId": 1
 // }
 exports.updateFriendAnswerForUser = (function (req, res) {
-    readJsonFile('../userQA.json', users => {
-
+    readJsonFile(usersPath, users => {
+        
         let user =findUserByName(req,users);
 
         if (user === undefined)
             return res.status(404).send('Friend try to insert answers for not exist user');
 
-        readJsonFile('../friends.json', friends => {
+        readJsonFile(friendsPath, friends => {
 
             let friend =
                 friends.find(item => req.params.username === item.userName && req.body.friendName === item.friendName);
@@ -186,13 +190,16 @@ exports.updateFriendAnswerForUser = (function (req, res) {
 
                 friends.push(friend);
             }
+          
+            console.log(req.body.questionId+"_question id");
+            console.log(req.body.questionAnswer+"_answer id");
 
             let questionId = parseInt(req.body.questionId);
-            let answerId = parseInt(req.body.answerId);
+            let answerId = parseInt(req.body.questionAnswer);
+            
+            friend.questionAnswer[questionId-1] = answerId;
 
-            friend.questionAnswer[questionId] = answerId;
-
-            writeJsonFile('../friends.json', friends, () => {
+            writeJsonFile(friendsPath, friends, () => {
                 let actualUserAnswer =
                     user.questionAnswer[questionId];
 
@@ -207,7 +214,7 @@ exports.updateFriendAnswerForUser = (function (req, res) {
 //postman get:http://localhost:3030/quiz/Ella/get-questions
 //ok
 exports.getQuestionsByUser=(function (req, res) {
-    readJsonFile('../userQA.json', users => {
+    readJsonFile(usersPath, users => {
 
         let user =
             users.find(item => req.params.username === item.userName.toString());
@@ -215,11 +222,11 @@ exports.getQuestionsByUser=(function (req, res) {
         if (user === undefined)
             return res.status(404).send('User not exist');
 
-        readJsonFile('../qaBank.json', questions => {
+        readJsonFile(qaBankPath, questions => {
 
             let questionsValues = []
             questions.forEach(element => {
-                questionsValues.push(element.question)
+                questionsValues.push(element)
             });
             res.setHeader('Content-Type', 'application/json');
             res.send(questionsValues);
@@ -229,7 +236,7 @@ exports.getQuestionsByUser=(function (req, res) {
 
 //postman get:http://localhost:3030/quiz/Ella/get-question/question=1
 exports.getQuestionByUserName=(function (req, res) {
-    readJsonFile('../userQA.json', users => {
+    readJsonFile(usersPath, users => {
 
         let user =
             users.find(item => req.params.username === item.userName.toString());
@@ -238,7 +245,7 @@ exports.getQuestionByUserName=(function (req, res) {
             return res.status(404).send('User not exist');
 
 
-        readJsonFile('../qaBank.json', questions => {
+        readJsonFile(qaBankPath, questions => {
             let url = req.url;//return array
 
             let idQuery = url.split("?")[1];//question=1
@@ -250,7 +257,7 @@ exports.getQuestionByUserName=(function (req, res) {
             if (question === undefined) return res.status(404).send('Question not exist');
 
             res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(question.question));
+            res.send(JSON.stringify(question));
         })
     });
 });

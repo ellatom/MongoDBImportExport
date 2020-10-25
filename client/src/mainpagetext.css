@@ -1,0 +1,16 @@
+.quizInstruction
+{
+   
+    background-color: rgb(0, 26, 255);
+    color: beige;
+    width: 300px;
+    height: 400px;
+    border: 1px solid cadetblue;
+    border-radius: 5px;
+}
+.quizContainer
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

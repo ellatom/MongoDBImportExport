@@ -1,0 +1,14 @@
+.card
+{
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    grid-template-rows: repeat(2, 300px);
+    /* grid-gap: 10px; */
+    grid-column: 1 / 2; /* span from grid column line 1 to 3 (i.e., span 2 columns) */
+    grid-row: 1 / 2;
+}
+.question{
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: bold;
+}

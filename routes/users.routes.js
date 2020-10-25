@@ -14,7 +14,7 @@ module.exports=function(app){
     app.post('/api/quiz/:username/create',users.createNewUser);
     app.put('/api/quiz/:username/update', users.updateUserAnswer);
     app.post('/api/quiz/:username/answer', users.updateFriendAnswerForUser);
-    app.get('/api/quiz/:username/get-questions', users.updateFriendAnswerForUser); 
+    app.get('/api/quiz/:username/get-questions', users.getQuestionsByUser); 
     app.get('/api/quiz/results/:userId/summary', users.getSummaryById);
    
      

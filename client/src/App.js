@@ -4,6 +4,7 @@ import MainPage from './MainPage';
 import QuestionAnswerCard from './QuestionAnswerCard';
 import history from './history';
 import ScoreBoard from './ScoreBoard';
+import SendLinkToFriend from './SendLinkToFriend';
 
 const App = () => {
   
@@ -14,9 +15,11 @@ const App = () => {
           <Switch>
             <Route exact path="/"  component={MainPage} />
             <Route exact path="/qacards"  component={QuestionAnswerCard} />
-            <Route exact path="/qacards/scoreboard"  component={ScoreBoard} />
+            <Route exact path="/qacards/sendlinktofriend"  component={SendLinkToFriend} />
+            <Route exact path="/friendqacards/:username"  component={MainPage} />
+            <Route exact path="/qacards/scoreboard/:username"  component={ScoreBoard} />
           </Switch>
-        </div>
+          </div>
       </Router>
     </div>
   );
