@@ -21,20 +21,20 @@ class NameBar extends React.Component {
   }
 
   handleUserProfileFlow=async()=>{
-    debugger;
+    // debugger;
     console.log("user flow");
     let response = await api.createUser(this.state.name);
     console.log(response);
     history.push({ 
       pathname: '/qacards',
       state: { username: this.state.name,flow:'user'},
-      forceRefresh:true
+      // forceRefresh:true
     });
-    history.go();
+    // history.go();
   }
   handleFriendFlow=()=>
   {
-    debugger;
+    // debugger;
     console.log("friend flow");
 
     history.push({ 

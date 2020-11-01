@@ -1,34 +1,35 @@
 import axios from 'axios';
 
-const instance = 
-    axios.create({ baseURL: 'http://localhost:3030'});
+// const axios = 
+//     axios.create({ baseURL: 'http://localhost:3030'});
 
 //get results per userId
 async function createUser(username) {
-    return (await instance.post(`/api/quiz/${username}/create`));
+    // debugger;
+    return (await axios.post(`/api/quiz/${username}/create`));
 }
 async function updateUser(username) {
-    return (await instance.put(`/api/quiz/${username}/update`));
+    return (await axios.put(`/api/quiz/${username}/update`));
 }
 async function getUserQuestion(username,questionId) {
-    return (await instance.get(`/api/quiz/${username}/get-question?question=${questionId}`)).data;
+    return (await axios.get(`/api/quiz/${username}/get-question?question=${questionId}`)).data;
 }
 async function updateUserAnswer(username, userData) {
-    return (await instance.put(`/api/quiz/${username}/update`, userData));
+    return (await axios.put(`/api/quiz/${username}/update`, userData));
 }
 async function updateFriendAnswerForUser(username, userData) {
-    return (await instance.post(`/api/quiz/${username}/answer`, userData));
+    return (await axios.post(`/api/quiz/${username}/answer`, userData));
 }
-async function getSummaryByUser(userId, userData)
+async function getSummaryByFriend(friend)
 {
-    return (await instance.get(`/api/quiz/results/${userId}/summary`, userData));
+    return (await axios.get(`/api/quiz/results/${friend}/summary`)).data;
 }
 
 export default {
     createUser,
-    updateUser,
     getUserQuestion,
+    updateUser,
     updateUserAnswer,
     updateFriendAnswerForUser,
-    getSummaryByUser
+    getSummaryByFriend
 };

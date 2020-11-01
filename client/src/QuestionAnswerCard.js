@@ -6,14 +6,15 @@ import './questionanswercard.css'
 
 class QuestionAnswerCard extends React.Component {
 
-  state = { username: null, answer: "", pageIndex: 1, question: null, answers: [] }
+  state = { username: null, answer: "", pageIndex: 1, question: "", answers: [] }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    console.log("Inside component did mount")
     this.showPage();
   }
 
   showPage = async (event) => {
-    debugger;
+
     let qa =
       await api.getUserQuestion(this.props.location.state.username, this.state.pageIndex);
 
@@ -38,14 +39,17 @@ class QuestionAnswerCard extends React.Component {
         }
 
         if (this.props.location.state.flow === 'friend') {
-          await this.saveFriendProfile();
+
+          let a = await this.saveFriendProfile();
+
           this.showPage(this.state.pageIndex);
 
-          if (this.state.pageIndex > this.state.question.answers.length + 1) {
-            debugger;
+
+          if (this.state.pageIndex > this.state.question.answers.length+1) {
+
             history.push({
-              pathname: `/qacards/scoreboard/${this.state.username}`,
-              state: { username: this.props.location.state.username},//, friendname: this.props.location.state.friendname 
+              pathname: `/qacards/scoreboard/${this.props.location.state.username}`,
+              state: { usernamme: { uname: this.props.location.state.username, friendname: this.props.location.state.friendname } },
               forceRefresh: true
             });
           }
@@ -71,7 +75,7 @@ class QuestionAnswerCard extends React.Component {
   }
 
   saveFriendProfile = async () => {
-    let friendAnswer= this.state.answers[this.state.answers.length-1];
+    let friendAnswer = this.state.answers[this.state.answers.length - 1];
     let userData = {
       "userName": this.props.location.state.username,
       "friendName": this.props.location.state.friendname,
@@ -82,7 +86,7 @@ class QuestionAnswerCard extends React.Component {
     let userAnswer =
       await api.updateFriendAnswerForUser(this.props.location.state.username, userData);
 
-    console.log(userAnswer + "update friend and return user answer")
+    // console.log(userAnswer + "update friend and return user answer")
 
   }
   handleSubmit = async (event) => {

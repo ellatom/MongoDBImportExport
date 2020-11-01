@@ -6,7 +6,7 @@ import './mainpage.css'
 class MainPage extends React.Component {
   
   render() {
-    debugger;
+    // debugger;
     return (
       <div>
           <MainPageText></MainPageText>

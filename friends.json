@@ -26,81 +26,42 @@
     ]
   },
   {
-    "userId": 1,
-    "userName": "Ella",
-    "friendId": 7438764,
-    "friendName": "tova",
+    "userId": 4789920,
+    "userName": "opopopyuyu",
+    "friendId": 8846557,
+    "friendName": "yuuyubn",
     "questionAnswer": [
-      3,
-      2,
-      null,
-      null,
-      1
-    ]
-  },
-  {
-    "userId": 3646269,
-    "userName": "WL",
-    "friendId": 7092607,
-    "friendName": "QWO",
-    "questionAnswer": [
-      1,
-      1,
-      1,
-      1,
-      1
-    ]
-  },
-  {
-    "userId": 3646269,
-    "userName": "WL",
-    "friendId": 5491543,
-    "friendName": "QASZ",
-    "questionAnswer": [
-      3,
       4,
-      1,
-      1,
-      4
+      4,
+      2,
+      2,
+      2
     ]
   },
   {
-    "userId": 5599559,
-    "userName": "Elak",
-    "friendId": 6650591,
-    "friendName": "OUY",
+    "userId": 1874484,
+    "userName": "kjh",
+    "friendId": 1503584,
+    "friendName": "kljp",
     "questionAnswer": [
       2,
       2,
       null,
-      null,
+      4,
       null
     ]
   },
   {
-    "userId": 3646269,
-    "userName": "WL",
-    "friendId": 9356098,
-    "friendName": "POUY",
+    "userId": 8012353,
+    "userName": "jklhn",
+    "friendId": 4074643,
+    "friendName": "nmm,cx",
     "questionAnswer": [
       2,
-      2,
-      2,
-      1,
-      4
-    ]
-  },
-  {
-    "userId": 1307450,
-    "userName": "ASOU",
-    "friendId": 1792549,
-    "friendName": "UOUO",
-    "questionAnswer": [
-      2,
-      2,
-      3,
       4,
-      2
+      1,
+      3,
+      null
     ]
   }
 ]

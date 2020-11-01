@@ -9,13 +9,13 @@ module.exports=function(app){
     app.use(express.json());//must add to read body
     app.use(express.urlencoded());
 
+    // debugger;
     app.get('/api/quiz/results/:userId',users.getUserQA);
     app.get('/api/quiz/:username/get-question',users.getQuestionByUserName);
     app.post('/api/quiz/:username/create',users.createNewUser);
     app.put('/api/quiz/:username/update', users.updateUserAnswer);
     app.post('/api/quiz/:username/answer', users.updateFriendAnswerForUser);
     app.get('/api/quiz/:username/get-questions', users.getQuestionsByUser); 
-    app.get('/api/quiz/results/:userId/summary', users.getSummaryById);
-   
+    app.get('/api/quiz/results/:friend/summary', users.getSummaryByName);
      
 }

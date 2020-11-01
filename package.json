@@ -12,6 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.6"
+    "http-proxy-middleware": "^1.0.6",
+    "is-valid-coordinates": "^1.0.0",
+    "mongoose": "^5.10.10",
+    "mongoose-extend-schema": "^1.0.0",
+    "validator": "^13.1.17"
   }
 }

@@ -1,0 +1,18 @@
+.containerScoreBoard
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.scoreboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(229, 231, 91);
+    width:300px;
+    height:600px;
+    padding: 10px;
+    border-radius: 5px;
+}

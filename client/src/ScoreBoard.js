@@ -1,23 +1,29 @@
 import React from 'react';
-import api from './api';//
+import api from './api';
+import './scoreboard.css'
 
 
 class ScoreBoard extends React.Component {
 
-  state={friendname:"",score:""};
+  state = { friendname: "", score: "" };
 
-  componentDidMount=async()=>
-  {
+  componentDidMount = async () => {
     debugger;
-    let y=this.props.location.state.friendname;
-    let r=this.props.location.state.username;
-    await api.getSummaryByUser(this.props.location.state.friendname,this.props.location.state.username);//
+    let friend = this.props.location.state.usernamme.friendname;
+    // let username=this.props.location.state.usernamme.uname;
+
+    let result = await api.getSummaryByFriend(friend);
+    this.setState({ score: result });
   }
   render() {
     return (
       <div>
-          <p>PAGE UNDER CONSTRUCTION-This is scoreboard</p>
-          {/* <p>{result}</p> */}
+        <div className="containerScoreBoard">
+          <div className="scoreboard">
+            <div>Scoreboard</div>
+            <p>{this.state.score}</p>
+          </div>
+        </div>
       </div>
     );
   }

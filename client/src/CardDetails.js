@@ -20,4 +20,3 @@ class CardDetails extends React.Component {
     }
 }
 export default CardDetails;
-// {this.props.keyQA + 1}
